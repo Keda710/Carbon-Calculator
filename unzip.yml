@@ -1,0 +1,25 @@
+name: Unzip file
+
+on:
+  push:
+    paths:
+      - "path/to/your/file.zip"
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Unzip file
+        run: unzip path/to/your/file.zip -d path/to/extract/
+        
+      - name: Commit unzipped files
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add path/to/extract/
+          git commit -m "Unzipped file"
+          git push
